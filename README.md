@@ -33,6 +33,33 @@ python3 $vae --job=$job --data_path=$data_path --gene_path=$gene_path --tf_path=
 
 A pre-trained model can be found [here](https://visualify.pharmacy.arizona.edu/Manatee/GSE72857best_fold.pt). You will need to download it into ```./GSE72857/model/``` to run the following code chunks.
 
+
+## Creating Data_Z:
+
+To create Data_Z we use the model we just trained and input the following lines into the terminal.
+
+For MacOS
+```
+python3 ./src/train_vae.py \
+    --job=encode \
+    --mode=predict \
+    --data_path=./GSE72857/processed/data_x.csv.gz \
+    --gene_path=./GSE72857/processed/genes.txt \
+    --tf_path=./GSE72857/processed/tfs.txt \
+    --model_path=./GSE72857/model/GSE72857best_fold.pt \
+    --out_dir=./GSE72857/processed/
+```
+
+For Windows
+```
+$vae = "./src/train_vae.py"
+$data_path = "./GSE72857/processed/data_x.csv.gz"
+$gene_path = "./GSE72857/processed/genes.txt"
+$tf_path = "./GSE72857/processed/tfs.txt"
+$model_path = "./GSE72857/model/GSE72857best_fold.pt"
+$out_dir = "./GSE72857/processed/"
+```
+
 ## Model Benchmarking:
 
 We examine whether Manatee is able to capture biological information, by benchmarking its two modes:
