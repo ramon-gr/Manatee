@@ -22,7 +22,7 @@ Assuming we are at the root directory of the Manatee repository. The rawdata is 
 
 ```
 vae=./src/train_vae.py
-job=GSE72857
+job=train
 data_path=./GSE72857/processed/data_x.csv.gz
 gene_path=./GSE72857/processed/genes.txt
 tf_path=./GSE72857/processed/tfs.txt
