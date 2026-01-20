@@ -71,7 +71,11 @@ python .\src\train_vae.py `
     --out_dir=.\GSE72857\processed\
 ```
 
-This is as far as I (Ramon) got. Any instructions beyond here I haven't verified to see if they work. Will get to it later
+The step above will encode and predict the original data (data_x.csv.gz). It will save:
+    1. encode_predict_x_rec_data.csz.gz. This is sometimes referred to as X'. The reconstruction of the original data that is obtained from decoding the compressed data_Z.
+    2. encode_predict_x_rec_umap.csz.gz. A reconstruction of the data in UMAP form. 
+    3. encode_predict_x_umap.csz.gz. The original data in UMAP form.
+    4. encode_predict_z_reparametrization.csz.gz. The Z data. The compressed form of the original data, now in the latent space, which is used for perturbation on the data. 
 
 ## Model Benchmarking:
 
