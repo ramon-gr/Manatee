@@ -91,9 +91,9 @@ For Windows
 $vae = "./src/train_vae.py"
 $gene_path = "./GSE72857/processed/genes.txt"
 $tf_path = "./GSE72857/processed/tfs.txt"
-$model_path = "GSE72857\model\GSE72857_fold_0.pt"
+$model_path = "path to best fold here"
 $data_path = "./GSE72857/processed/data_x.csv.gz"
-$z_path = "GSE72857\processed\encode_predict_z_reparametrization.csv.gz"
+$z_path = "z_path here"
 $out_dir = "./GSE72857/benchmark/"
 
 python $vae --job=encode --mode=generate --data_path=$data_path --z_path=$z_path --gene_path=$gene_path --tf_path=$tf_path --model_path=$model_path --out_dir=$out_dir --depth=3
