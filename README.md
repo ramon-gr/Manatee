@@ -82,7 +82,7 @@ The step above will encode and predict the original data (data_x.csv.gz). It wil
 
 ## Generating Data:
 
-The model's generate mode is used to reconstruct from the latent space into data in the original form. In other words converting data_z -> X'.
+The model's generate mode is used to reconstruct from the latent space into data in the original form. In other words converting data_z → X'.
 
 To run the generate mode on a given data_z use the following lines
 
