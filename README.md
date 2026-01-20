@@ -80,6 +80,24 @@ The step above will encode and predict the original data (data_x.csv.gz). It wil
     
 4. encode_predict_z_reparametrization.csz.gz. The Z data. The compressed form of the original data, now in the latent space, which is used for perturbation on the data. 
 
+## Generating Data
+
+The model's generate mode is used to reconstruct from the latent space into data in the original form. In other words converting data_z -> X'.
+
+To run the generate mode on a given data_z use the following lines
+
+For Windows
+```
+$vae = "./src/train_vae.py"
+$gene_path = "./GSE72857/processed/genes.txt"
+$tf_path = "./GSE72857/processed/tfs.txt"
+$model_path = "GSE72857\model\GSE72857_fold_0.pt"
+$data_path = "./GSE72857/processed/data_x.csv.gz"
+$z_path = "GSE72857\processed\encode_predict_z_reparametrization.csv.gz"
+$out_dir = "./GSE72857/benchmark/"
+
+python $vae --job=encode --mode=generate --data_path=$data_path --z_path=$z_path --gene_path=$gene_path --tf_path=$tf_path --model_path=$model_path --out_dir=$out_dir --depth=3
+```
 ## Model Benchmarking:
 
 We examine whether Manatee is able to capture biological information, by benchmarking its two modes:
