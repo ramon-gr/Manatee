@@ -41,12 +41,11 @@ $out_dir = ".\GSE72857\model\"
 
 python $vae --job=$job --data_path=$data_path --gene_path=$gene_path --tf_path=$tf_path --out_dir=$out_dir --cv=5 --lr=1e-4 --depth=3 --alpha=0.8
 ```
-
-A pre-trained model can be found [here](https://visualify.pharmacy.arizona.edu/Manatee/GSE72857best_fold.pt). You will need to download it into ```./GSE72857/model/``` to run the following code chunks.
+This will output 5 folds, 0 through 4. The code will print out which fold performed the best in the terminal. When generating data Z in the next step use the path to the best fold. 
 
 ## Creating Data_Z:
 
-To create Data_Z we use the model we just trained and input the following lines into the terminal.
+To create Data_Z we use the model we just trained and input the following lines into the terminal. Make sure to use the path to the best fold as given by the training step
 
 For MacOS
 ```
