@@ -80,7 +80,7 @@ The step above will encode and predict the original data (data_x.csv.gz). It wil
     
 4. encode_predict_z_reparametrization.csz.gz. The Z data. The compressed form of the original data, now in the latent space, which is used for perturbation on the data. 
 
-## Generating Data
+## Generating Data:
 
 The model's generate mode is used to reconstruct from the latent space into data in the original form. In other words converting data_z -> X'.
 
