@@ -84,11 +84,29 @@ class VAE(torch.nn.Module):
 
     def vae_loss(self, X, X_rec, Z, Z_rec, mu, logvar):
         """ Custom loss for VAE """
+        # original code
+        ''' 
         kld = -0.5 * torch.sum(1. + logvar - mu.pow(2) - logvar.exp(), )
         loss_1 = (1 - self.beta) * F.mse_loss(X_rec, X, reduction="sum") + self.beta * kld
         loss_2 = F.mse_loss(Z_rec, Z, reduction="sum")
         return torch.mean((1 - self.alpha) * loss_1 + self.alpha * loss_2)
+        '''
+        # ramon code for bimodal distribution using zero inflated loss
+        # using a weighted MSE to encourage zero predictions
 
+        # Give higher weight to zero predictions
+        is_zero = (X == 0).float()
+        weights = 1.0 + is_zero * 2.0  # 3x weight on zeros, 1x on non-zeros (can change weights if needed)
+    
+        # Weighted MSE
+        weighted_mse = (weights * (X - X_rec) ** 2).sum()
+        kld = -0.5 * torch.sum(1. + logvar - mu.pow(2) - logvar.exp())
+    
+        loss_1 = (1 - self.beta) * weighted_mse + self.beta * kld
+        loss_2 = F.mse_loss(Z_rec, Z, reduction="sum")
+    
+        return torch.mean((1 - self.alpha) * loss_1 + self.alpha * loss_2)
+    
     def train_model(self, train_loader, learning_rate, n_epochs, train_patience, test_patience, test_loader=False, save_model=True):
         """ Train VAE """
         epoch_hist = {}
