@@ -7,28 +7,25 @@ def load_and_plot(path, title, original):
     # Load 200 rows, but also limit to 200 columns for the heatmap
     df = pd.read_csv(path, sep=' ', header=None, dtype='float32', nrows=500, engine='c')
     
-    # Slice to a square for a clean visualization
-    df_plot = df.iloc[:, :200] 
-
     if not original:
-        threshold = 3.2
-        df_plot = df_plot.where(df_plot >= threshold, 0)
+        threshold = 0
+        df = df.where(df >= threshold, 0)
     
     # Stats
-    vals = df_plot.values
+    vals = df.values
     v_min, v_max = vals.min(), vals.max()
     v_mean = vals.mean()
     zero_pct = (vals == 0).sum() / vals.size * 100
     
     print(f"\n=== {title} ===")
-    print(f"Plotting Shape: {df_plot.shape}")
+    print(f"Plotting Shape: {df.shape}")
     print(f"Value range: {v_min:.4f} to {v_max:.4f}")
     print(f"Mean: {v_mean:.4f}")
     print(f"% zeros: {zero_pct:.2f}%")
 
     plt.figure(figsize=(10, 8))
     # Using robust=True handles outliers in the color scale automatically
-    sns.heatmap(df_plot, cmap='viridis', cbar=True, robust=True)
+    sns.heatmap(df, cmap='viridis', cbar=True, robust=True)
     plt.title(title)
     plt.tight_layout()
     
@@ -57,6 +54,8 @@ predict_means = df_predict.mean(axis=0)
 plt.figure(figsize=(10, 4))
 plt.hist(df_original.values.flatten(), bins=50, alpha=0.5, label='Original', range=(0, 20))
 plt.hist(df_predict.values.flatten(), bins=50, alpha=0.5, label='Predicted', range=(0, 20))
+plt.xlabel("Expression level")
+plt.ylabel("Count")
 plt.legend()
 plt.title("Distribution of Expression Levels")
 plt.show()
