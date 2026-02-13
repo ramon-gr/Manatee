@@ -28,7 +28,7 @@ gene_path=./GSE72857/processed/genes.txt
 tf_path=./GSE72857/processed/tfs.txt
 out_dir=./GSE72857/model/
 
-python3 $vae --job=$job --data_path=$data_path --gene_path=$gene_path --tf_path=$tf_path --out_dir=$out_dir --cv=5 --lr=1e-4 --depth=3 --alpha=0.8
+python $vae --job=$job --data_path=$data_path --gene_path=$gene_path --tf_path=$tf_path --out_dir=$out_dir --cv=5 --lr=1e-4 --depth=3 --alpha=0.8
 ```
 This will output 5 folds, 0 through 4. The code will print out which fold performed the best in the terminal. When generating data Z in the next step use the path to the best fold. 
 
