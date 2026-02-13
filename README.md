@@ -19,7 +19,7 @@ We use the [GSE72857](https://pubmed.ncbi.nlm.nih.gov/26627738/) dataset as an e
 Assuming we are at the root directory of the Manatee repository. The rawdata is in ```./GSE72857/processed/```. Further data processing for sections **_In Silico_ Perturbation** and **_In Silico_ Screening** can be done by running ```processed.R```. The yielded data files are provided in ```./GSE72857/perturb/``` and ```./GSE72857/screen/``` respectively for reproducing our results.
 
 ## Model Training:
-For MacOS
+
 ```
 vae=./src/train_vae.py
 job=train
@@ -30,36 +30,12 @@ out_dir=./GSE72857/model/
 
 python3 $vae --job=$job --data_path=$data_path --gene_path=$gene_path --tf_path=$tf_path --out_dir=$out_dir --cv=5 --lr=1e-4 --depth=3 --alpha=0.8
 ```
-For Windows
-```
-$vae = ".\src\train_vae.py"
-$job = "train"
-$data_path = ".\GSE72857\processed\data_x.csv.gz"
-$gene_path = ".\GSE72857\processed\genes.txt"
-$tf_path = ".\GSE72857\processed\tfs.txt"
-$out_dir = ".\GSE72857\model\"
-
-python $vae --job=$job --data_path=$data_path --gene_path=$gene_path --tf_path=$tf_path --out_dir=$out_dir --cv=5 --lr=1e-4 --depth=3 --alpha=0.8
-```
 This will output 5 folds, 0 through 4. The code will print out which fold performed the best in the terminal. When generating data Z in the next step use the path to the best fold. 
 
 ## Creating Data_Z:
 
 To create Data_Z we use the model we just trained and input the following lines into the terminal. Make sure to use the path to the best fold as given by the training step
 
-For MacOS
-```
-python3 ./src/train_vae.py \
-    --job=encode \
-    --mode=predict \
-    --data_path=./GSE72857/processed/data_x.csv.gz \
-    --gene_path=./GSE72857/processed/genes.txt \
-    --tf_path=./GSE72857/processed/tfs.txt \
-    --model_path="Path to best model" \
-    --out_dir=./GSE72857/processed/
-```
-
-For Windows
 ```
 python .\src\train_vae.py `
     --job=encode `
